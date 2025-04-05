@@ -1,0 +1,257 @@
+/* Root variables for colors */
+:root {
+    --green-400: hsl(172, 67%, 45%);
+    --green-900: hsl(183, 100%, 15%);
+    --grey-500: hsl(186, 14%, 43%);
+    --grey-400: hsl(184, 14%, 56%);
+    --grey-200: hsl(185, 41%, 84%);
+    --grey-50: hsl(189, 47%, 97%);
+    --white: hsl(0, 100%, 100%);
+    --error-color: hsl(0, 65%, 45%);
+}
+
+/* Typography and base styles */
+body {
+    font-family: 'Space Mono', monospace;
+    background-color: rgb(204, 236, 226);
+    color: var(--green-900);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    position: absolute; /* Position it at the top of its container */
+    top: 0; /* Align it to the top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust to truly center */
+    font-size: 2rem;
+    margin: 20px 0; /* Adjust margin to add spacing around the header */
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--green-900);
+    text-align: center;
+}
+
+/* Calculator container */
+.calculator {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 900px;
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    gap: 30px;
+}
+
+.left-column, .right-column {
+    flex: 1;
+}
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 16px;
+    color: var(--grey-500);
+    display: block;
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input-field i {
+    position: absolute;
+    left: 10px;
+    color: var(--grey-400);
+    font-size: 16px;
+}
+
+.input-field input {
+    padding: 10px 10px 10px 35px;
+    font-size: 16px;
+    border: 2px solid var(--grey-200);
+    border-radius: 8px;
+    width: 100%;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--green-400);
+}
+
+/* Error message styling */
+.error-message {
+    color: var(--error-color);
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Tip buttons grid */
+.tip-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.tip-btn {
+    padding: 10px;
+    font-size: 16px;
+    background-color: var(--green-400);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.tip-btn:hover {
+    background-color: var(--green-900);
+}
+
+.custom-tip {
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    border: 2px solid var(--grey-200);
+    border-radius: 8px;
+}
+
+/* Right column: results */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--green-900);
+    border-radius: 20px;
+    padding: 20px;
+    color: var(--white);
+    min-width: 300px;
+}
+
+.results {
+    margin-bottom: 20px;
+}
+
+.results p {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.results span {
+    font-weight: bold;
+}
+
+#reset {
+    background-color: var(--green-400);
+    color: var(--green-900);
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#reset:hover {
+    background-color: var(--grey-400);
+    color: var(--white);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    /* Main layout */
+    .calculator {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    /* Adjust columns for smaller screens */
+    .left-column, .right-column {
+        min-width: 100%;
+    }
+
+    /* Decrease font size and spacing for mobile */
+    h1 {
+        font-size: 1.5rem;
+        margin: 10px 0;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    /* Make input fields larger for easier touch input */
+    .input-field input {
+        font-size: 14px;
+        padding: 12px 10px 12px 35px;
+    }
+
+    .tip-btn {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .custom-tip {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    #reset {
+        font-size: 16px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Adjust layout further for very small screens */
+    .calculator {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .tip-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .input-field input {
+        font-size: 13px;
+    }
+
+    .tip-btn {
+        font-size: 14px;
+    }
+
+    .custom-tip {
+        font-size: 14px;
+    }
+
+    #reset {
+        font-size: 15px;
+        padding: 10px;
+    }
+}

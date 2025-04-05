@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tip Calculator</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+  <h1>SPLI<br>TTER</h1>
+  <div class="calculator">
+    <div class="left-column">
+      <h2>Calculate your tips with ease</h2>
+      <div class="input-group">
+        <label for="bill">Bill Amount:</label>
+        <div class="input-field">
+          <i class="fas fa-dollar-sign"></i>
+          <input type="number" id="bill" placeholder="Enter bill amount">
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Tip Percentage:</label>
+        <div class="tip-buttons">
+          <button type="button" class="tip-btn" data-tip="5">5%</button>
+          <button type="button" class="tip-btn" data-tip="10">10%</button>
+          <button type="button" class="tip-btn" data-tip="15">15%</button>
+          <button type="button" class="tip-btn" data-tip="25%">25%</button>
+          <button type="button" class="tip-btn" data-tip="50">50%</button>
+          <input type="number" id="custom-tip" placeholder="Custom %" class="custom-tip">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="people">Number of People:</label>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input type="number" id="people" placeholder="Enter number of people">
+        </div>
+        <!-- Error message for number of people -->
+        <span class="error-message" id="people-error"></span>
+      </div>
+    </div>
+    <div class="right-column">
+      <div class="results">
+        <p>Tip Amount per Person: <span id="tip-per-person">0.00</span></p>
+        <p>Total Amount per Person: <span id="total-per-person">0.00</span></p>
+      </div>
+      <button type="button" id="reset">Reset</button>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const billInput = document.getElementById("bill");
+      const peopleInput = document.getElementById("people");
+      const peopleError = document.getElementById("people-error");
+      const tipButtons = document.querySelectorAll(".tip-btn");
+      const customTipInput = document.getElementById("custom-tip");
+      const tipPerPerson = document.getElementById("tip-per-person");
+      const totalPerPerson = document.getElementById("total-per-person");
+      const resetButton = document.getElementById("reset");
+
+      let tipPercentage = 0;
+
+      // Validate the Number of People field for zero
+      peopleInput.addEventListener("input", () => {
+        const people = parseInt(peopleInput.value, 10);
+        if (people === 0) {
+          peopleError.textContent = "Can't be zero";
+        } else {
+          peopleError.textContent = "";
+          calculateTip();
+        }
+      });
+
+      tipButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          tipPercentage = parseFloat(button.getAttribute("data-tip"));
+          calculateTip();
+        });
+      });
+
+      customTipInput.addEventListener("input", () => {
+        tipPercentage = parseFloat(customTipInput.value) || 0;
+        calculateTip();
+      });
+
+      function calculateTip() {
+        const bill = parseFloat(billInput.value) || 0;
+        const people = parseInt(peopleInput.value, 10) || 1;
+
+        // Prevent calculation if people is 0
+        if (people === 0) return;
+
+        const tipAmount = (bill * tipPercentage) / 100;
+        const tipPerPersonValue = tipAmount / people;
+        const totalAmount = bill + tipAmount;
+        const totalPerPersonValue = totalAmount / people;
+
+        tipPerPerson.textContent = tipPerPersonValue.toFixed(2);
+        totalPerPerson.textContent = totalPerPersonValue.toFixed(2);
+      }
+
+      resetButton.addEventListener("click", () => {
+        billInput.value = "";
+        peopleInput.value = "";
+        customTipInput.value = "";
+        peopleError.textContent = "";
+        tipPerPerson.textContent = "0.00";
+        totalPerPerson.textContent = "0.00";
+      });
+    });
+  </script>
+</body>
+</html>
